@@ -75,6 +75,7 @@ nav {
     color: #cc588a;
 }
 
+.reg,
 .login {
     width: 20%;
     margin-left: auto;
@@ -83,11 +84,13 @@ nav {
     padding: 80px 0 80px 0;
 }
 
+.reg p,
 .login p {
     font-size: 16.5px;
     margin-bottom: 10px;
 }
 
+.reg input,
 .login input {
     width: 100%;
     margin-bottom: 15px;
@@ -97,12 +100,18 @@ nav {
     caret-color: #656565;
 }
 
+.reg input[type="submit"],
 .login input[type="submit"] {
     width: 107%;
     color: white;
     background-color: #656565;
     cursor: pointer;
     padding: 9px;
+}
+
+.reg .regHelp a {
+    font-size: 13px;
+    color: #656565;
 }
 
 .login .logHelp a {
@@ -112,13 +121,11 @@ nav {
     font-size: 8px;
 }
 
+.reg input:focus,
 .login input:focus {
     outline: none;
 }
 
-.login .logHelp a:hover {
-    /*color: ;*/
-}
 
 footer {
     display: flex;
@@ -477,6 +484,7 @@ footer {
         display: block;
     }
 
+    .reg,
     .login {
         display: block;
         margin-left: auto;
