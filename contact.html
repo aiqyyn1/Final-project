@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>KETNIPZ</title>
-    <link href="login1.css" rel="stylesheet">
+    <link href="contact.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
 <header>
     <div class="header-content">
         <div class="inner-header-content">
-            <a href="login.html"> <img class="header-img" height="20"
-                                       src="https://img.icons8.com/ios-filled/50/737373/user.png" width="20"/>
+            <a href="../login/login.html"> <img class="header-img" height="20"
+                                                src="https://img.icons8.com/ios-filled/50/737373/user.png" width="20"/>
             </a>
             <p>Official ketnipz online store</p>
             <img class="header-img" height="20" src="https://img.icons8.com/ios-glyphs/30/737373/search--v1.png"
@@ -28,20 +28,20 @@
                      width="40"/>
             </label>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="index.html">Shop All</a></li>
-                <li><a href="index.html">Apparel</a></li>
-                <li><a href="index.html">Plushies</a></li>
-                <li><a href="index.html">Accessories</a></li>
-                <li><a href="index.html">Footwear</a></li>
-                <li><a href="index.html">Mystery Items</a></li>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html">Shop All</a></li>
+                <li><a href="../index.html">Apparel</a></li>
+                <li><a href="../index.html">Plushies</a></li>
+                <li><a href="../index.html">Accessories</a></li>
+                <li><a href="../index.html">Footwear</a></li>
+                <li><a href="../index.html">Mystery Items</a></li>
             </ul>
         </div>
         <div class="nav-img">
             <img src="//cdn.shopify.com/s/files/1/2028/6907/files/Ketnipz_Header_550x_dd3e502e-9e2e-4ad6-8c4d-e7cadd42b578_130x.gif?v=1614929293 1x, //cdn.shopify.com/s/files/1/2028/6907/files/Ketnipz_Header_550x_dd3e502e-9e2e-4ad6-8c4d-e7cadd42b578_130x@2x.gif?v=1614929293 2x">
         </div>
         <div class="nav-links">
-            <a>Home</a>
+            <a href="../index.html">Home</a>
             <a>Shop All</a>
             <a>Apparel</a>
             <a>Plushies</a>
@@ -56,32 +56,37 @@
 </nav>
 
 <div class="main">
-  <div class="text">
-    
-  <h1>Contact</h1>
-  <label class="x"> Should you have any questions or concerns that aren't answered on our <a class="kox">Return & Exchange Policy</a> or <a class="kox">FAQ</a> pages, please use the following form to email our <br>dedicated support team!    </label>
-<p><br>Please remember that our hours of operation for shipping and customer service are<a> Monday through Friday</a>, 8AM to 4PM PST (excluding weekends and major holidays)<br> with response times typically within 1-2 business days. Please allow an extra 1-2 business days for a response during high traffic times <br>such as holidays and new launches.</p>
-<br>
-<p>Lastly please note that we answer all emails oldest to newest, so each new email will move you back to the end of the queue!</p>
-
-</div>
-    <div class="login">
-        <form action="login.php" method="post">
-            
-   
-            <input name="logEmail" placeholder="Email" type="email" required>
+    <div class="contact">
+        <div class="contact-text">
+            <p id="title">Contact</p>
             <br>
-
-            <input name="phone" placeholder="phone " type="text" required>
+            <p>Should you have any questions or concerns that aren't answered on our <a href="REpolicy.html">Return &
+                Exchange Policy</a> or
+                <a href="faq.hml">FAQ</a> pages, please use the following form to email our dedicated support team!</p>
             <br>
-          
-            <textarea class="textarea" placeholder="Message"></textarea>
-            <div class="btn"> 
-            <input name="logSubmit" type="submit" value="Send">
-          </div>
-        </form>
+            <p>Please remember that our hours of operation for shipping and customer service are <b>Monday through
+                Friday,
+                8AM to 4PM PST</b> (<i>excluding weekends and major holidays</i>) with response times typically within
+                1-2 business
+                days. Please allow an extra 1-2 business days for a response during high traffic times such as holidays
+                and new launches.</p>
+            <br>
+            <p>Lastly please note that <b>we answer all emails oldest to newest</b>, so <b><i>each new email will move
+                you back to the end of the queue!</i></b></p>
+            <br>
+            <form action="contact.php" method="post">
+                <input autocomplete="false" name="name" placeholder="Name" required type="text">
+                <br>
+                <input autocomplete="false" name="email" placeholder="Email" required type="email">
+                <br>
+                <input autocomplete="false" name="phone" placeholder="Phone" required type="text">
+                <br>
+                <textarea autocomplete="off" name="message" placeholder="Message" rows="7"></textarea>
+                <br>
+                <input name="submit" type="submit" value="Send">
+            </form>
+        </div>
     </div>
-
 </div>
 <footer>
     <div class="footer-content">
@@ -129,9 +134,9 @@
         <div class="copyright">
             <div class="copyright-content">
                 <ul>
-                    <li><a href="index.html">© KETNIPZ 2022</a>
+                    <li><a href="../index.html">© KETNIPZ 2022</a>
                     </li>
-                    <li>POWERED BY <a href="index.html">KILLER MERCH</a>
+                    <li>POWERED BY <a href="../index.html">KILLER MERCH</a>
                     </li>
                 </ul>
             </div>
