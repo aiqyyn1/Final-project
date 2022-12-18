@@ -45,6 +45,7 @@ nav {
   justify-content: center;
   top: 0;
   background-color: white;
+  z-index: 5;
   border-bottom: 0.5px solid rgba(0, 0, 0, 0.15);
 }
 
@@ -513,6 +514,14 @@ footer {
         margin-right: auto;
         width: 40%; */
   }
+  .fotos{
+    flex-wrap: wrap;
+  }
+ .img{
+  max-width: 230px;
+  max-height: 230px;
+ }
+
 
   .newsletter input[type='text'] {
     width: 96%;
@@ -592,4 +601,15 @@ footer {
   color: #fff;
   top: 20px;
  left: 20px;
+}
+p:hover{
+  opacity: 0.5;
+}
+label:hover{
+  opacity: 0.5;
+}
+.hnf{
+  width: 170px;
+  height: 20px;
+  background-color: #6565;
 }
