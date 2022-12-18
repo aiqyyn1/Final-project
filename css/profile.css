@@ -1,8 +1,5 @@
-
-
 * {
     margin: 0;
-    padding: 0;
 }
 
 .cart,
@@ -49,7 +46,6 @@ nav {
     top: 0;
     background-color: white;
     border-bottom: .5px solid rgba(0, 0, 0, .15);
-    z-index: 1;
 }
 
 .nav-content {
@@ -69,6 +65,8 @@ nav {
 }
 
 .nav-links a {
+    text-decoration: none;
+    color: #656565;
     padding-left: 30px;
     cursor: pointer;
 }
@@ -77,14 +75,21 @@ nav {
     color: #cc588a;
 }
 
-.nav-links a:first-child {
-    color: #cc588a;
-
+.profile {
+    display: grid;
+    width: 100%;
+    justify-content: center;
+    margin: 60px auto 100px;
+    text-align: center;
 }
 
-.wide-img img {
-    width: 100%;
-    filter: brightness(85%);
+#title {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.profile p {
+    font-size: 10px;
 }
 
 footer {
@@ -118,7 +123,8 @@ footer {
 .main-menu,
 .more-info,
 .newsletter {
-    width: 100%;
+    width: 33%;
+    display: inline-block;
 }
 
 .main-menu hr,
@@ -215,10 +221,8 @@ footer {
     padding: 0 20px 0 20px;
 }
 
-
 @media screen and (max-width: 426px) {
     .header-content,
-    .nav-content,
     .nav-content,
     .footer-content,
     .main-menu,
@@ -233,8 +237,7 @@ footer {
         margin-right: auto;
     }
 
-    .cart,
-    .dropdown-menu {
+    .cart {
         display: block;
         margin-top: auto;
         margin-bottom: auto;
@@ -298,7 +301,6 @@ footer {
         display: block;
         z-index: 100;
     }
-
 
     .nav-img img {
         display: block;
@@ -478,100 +480,5 @@ footer {
     .payment ul li {
         padding: 5px 6px 5px 6px;
     }
-}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.rega {
-  display: none;
-}
-
-
-/* Add padding to containers */
-.container {
-  padding: 16px;
-  display: flex;
-  align-items: center;
-    flex-direction: column;
-}
-
-.box{
-  
-}
-input[type='text'],
-input[type='password'] {
- width: 30%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-}
-
-input[type='text']:focus,
-input[type='password']:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-/* Overwrite default styles of hr */
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
-
-/* Set a style for the submit/register button */
-.registerbtn {
-  background-color: gray;
-  color: white;
-  padding: 16px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 450px;
-  margin-bottom: 20px;
-  opacity: 0.9;
-}
-
-.registerbtn:hover {
-  opacity: 1;
-}
-
-/* Add a blue text color to links */
-a {
-  color: dodgerblue;
-}
-
-/* Set a grey background color and center the text of the "sign in" section */
-.signin {
-  background-color: #f1f1f1;
-  text-align: center;
-  width: 30%;
-}
-.btnsigin{
-     
-    background: none;
-    border: none;
-
-}
-.x{
-    margin-left: 100px;
 }
