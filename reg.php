@@ -1,8 +1,9 @@
 <?php
 session_start();
-include "db/conn.php";
 
 if (isset($_REQUEST['regSubmit'])) {
+    
+    include "db/conn.php";
     $fname = mysqli_real_escape_string($con, $_POST['fname']);
     $lname = mysqli_real_escape_string($con, $_POST['lname']);
     $email = mysqli_real_escape_string($con, $_POST['regEmail']);
