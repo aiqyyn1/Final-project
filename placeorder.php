@@ -1,32 +1,9 @@
-<?php
-session_start();
-// Include functions and connect to the database using PDO MySQL
-include 'functions.php';
-$pdo = pdo_connect_mysql();
-
-?>
-<?php
-// The amounts of products to show on each page
-$num_products_on_each_page = 10;
-// The current page, in the URL this will appear as index.php?page=products&p=1, index.php?page=products&p=2, etc...
-$current_page = isset($_GET['p']) && is_numeric($_GET['p']) ? (int)$_GET['p'] : 1;
-// Select products ordered by the date added
-$stmt = $pdo->prepare('SELECT * FROM products ORDER BY date_added DESC LIMIT ?,?');
-// bindValue will allow us to use integer in the SQL statement, we need to use for LIMIT
-$stmt->bindValue(1, ($current_page - 1) * $num_products_on_each_page, PDO::PARAM_INT);
-$stmt->bindValue(2, $num_products_on_each_page, PDO::PARAM_INT);
-$stmt->execute();
-// Fetch the products from the database and return the result as an Array
-$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// Get the total number of products
-$total_products = $pdo->query('SELECT * FROM products')->rowCount();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KETNIPZ</title>
     <link href="css/shopAll.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -69,7 +46,7 @@ $total_products = $pdo->query('SELECT * FROM products')->rowCount();
         </div>
         <div class="nav-links">
             <a href="index.php">Home</a>
-            <a href="index.php">Shop All</a>
+            <a href="shopAll.php">Shop All</a>
             <a href="apparel.php">Apparel</a>
             <a href="plushies.php">Plushies</a>
             <a href="accessories.php">Accessories</a>
@@ -82,40 +59,10 @@ $total_products = $pdo->query('SELECT * FROM products')->rowCount();
     </div>
 </nav>
 <main>
-    <div class="items">
-        <div class="shopAll">
-            <h1>Shop All</h1>
-        </div>
-        <div class="subscribe">
-            <div>subscribe</div>
-        </div>
-        <p><?=$total_products?> Products</p>
-    <div class="fotos">
-    <div class="kox">
-        <?php foreach ($products as $product): ?>
-        <a href="index2.php?page=product&id=<?=$product['id']?>" class="product">
-            <img src="imgs/<?=$product['img']?>" width="200" height="200" alt="<?=$product['name']?>">
-            <span class="name"><?=$product['name']?></span>
-            <span class="price">
-                &dollar;<?=$product['price']?>
-                <?php if ($product['rrp'] > 0): ?>
-                <span class="rrp">&dollar;<?=$product['rrp']?></span>
-                <?php endif; ?>
-            </span>
-        </a>
-        <?php endforeach; ?>
-    </div>
-    </div>
-    <div class="buttons">
-        <?php if ($current_page > 1): ?>
-        <a href="index.php?page=products&p=<?=$current_page-1?>">Prev</a>
-        <?php endif; ?>
-        <?php if ($total_products > ($current_page * $num_products_on_each_page) - $num_products_on_each_page + count($products)): ?>
-        <a href="index.php?page=products&p=<?=$current_page+1?>">Next</a>
-        <?php endif; ?>
-    </div>
-        </div>
-    </div>
+<div class="placeorder content-wrapper">
+    <h1>Your Order Has Been Placed</h1>
+    <p>Thank you for ordering with us, we'll contact you by email with your order details.</p>
+</div>
 </main>
 <footer>
     <div class="footer-content">
@@ -393,17 +340,5 @@ $total_products = $pdo->query('SELECT * FROM products')->rowCount();
         </div>
     </div>
 </footer>
-<script>
-    function cartClick() {
-        <?php
-        if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {?>
-        window.location = 'cart.php';
-        <?php
-        } else {?>
-        window.location = 'login.php';
-        <?php
-        }?>
-    }
-</script>
 </body>
 </html>
