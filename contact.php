@@ -1,9 +1,9 @@
 <?php
-session_start();
-include "db/conn.php";
-include "login.php";
 
 if (isset($_POST['submit'])) {
+    session_start();
+    include "db/conn.php";
+    
     if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
         $name = mysqli_real_escape_string($con, $_POST['name']);
         $email = mysqli_real_escape_string($con, $_POST['email']);
