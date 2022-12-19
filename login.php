@@ -1,19 +1,53 @@
+<?php
+session_start();
+include "db/conn.php";
 
+if (isset($_REQUEST['logSubmit'])) {
+    $email = mysqli_real_escape_string($con, $_POST['logEmail']);
+    $password = mysqli_real_escape_string($con, $_POST['logPassword']);
+
+    if ($con->connect_error) {
+        die("Error while connecting to database: " . $con->connect_error);
+    }
+
+    $checkAcc = "select * from users where email = '$email' and password = '$password' limit 1";
+    $checkAccRes = mysqli_query($con, $checkAcc);
+    if (mysqli_num_rows($checkAccRes) > 0) {
+        $getData = "select fname, lname, email, password from users where email = '$email' and password = '$password'";
+        $getDataRes = mysqli_query($con, $getData);
+
+        $userData = mysqli_fetch_array($getDataRes);
+
+        $_SESSION['fname'] = $userData['fname'];
+        $_SESSION['lname'] = $userData['lname'];
+        $_SESSION['email'] = $userData['email'];
+        $_SESSION['password'] = $userData['password'];
+        $_SESSION['loggedIn'] = true;
+        header('location: profile.php');
+    } else {
+        echo '<script type="text/javaScript">alert("No such data! You will be headed to registration form.");</script>';
+        echo '<script type="text/javaScript">window.location = "reg.php";</script>';
+
+    }
+
+    mysqli_close($con);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>KETNIPZ</title>
-    <link href="login.css" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
 <header>
     <div class="header-content">
         <div class="inner-header-content">
-            <a href="login.html"> <img class="header-img" height="20"
-                                       src="https://img.icons8.com/ios-filled/50/737373/user.png" width="20"/>
+            <a href="login.php"> <img class="header-img" height="20"
+                                      src="https://img.icons8.com/ios-filled/50/737373/user.png" width="20"/>
             </a>
             <p>Official ketnipz online store</p>
             <img class="header-img" height="20" src="https://img.icons8.com/ios-glyphs/30/737373/search--v1.png"
@@ -29,51 +63,43 @@
                      width="40"/>
             </label>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shopAll.html">Shop All</a></li>
-                <li><a href="index.html">Apparel</a></li>
-                <li><a href="index.html">Plushies</a></li>
-                <li><a href="index.html">Accessories</a></li>
-                <li><a href="index.html">Footwear</a></li>
-                <li><a href="index.html">Mystery Items</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="index.php">Shop All</a></li>
+                <li><a href="index.php">Apparel</a></li>
+                <li><a href="index.php">Plushies</a></li>
+                <li><a href="index.php">Accessories</a></li>
+                <li><a href="index.php">Footwear</a></li>
+                <li><a href="index.php">Mystery Items</a></li>
             </ul>
         </div>
         <div class="nav-img">
             <img src="//cdn.shopify.com/s/files/1/2028/6907/files/Ketnipz_Header_550x_dd3e502e-9e2e-4ad6-8c4d-e7cadd42b578_130x.gif?v=1614929293 1x, //cdn.shopify.com/s/files/1/2028/6907/files/Ketnipz_Header_550x_dd3e502e-9e2e-4ad6-8c4d-e7cadd42b578_130x@2x.gif?v=1614929293 2x">
         </div>
         <div class="nav-links">
-            <a>Home</a>
-            <a>Shop All</a>
-            <a>Apparel</a>
-            <a>Plushies</a>
-            <a>Accessories</a>
-            <a>Footwear</a>
-            <a>Mystery Items</a>
-            <a>Cart</a>
+            <a href="index.php">Home</a>
+            <a href="index.php">Shop All</a>
+            <a href="apparel.php">Apparel</a>
+            <a href="plushies.php">Plushies</a>
+            <a href="accessories.php">Accessories</a>
+            <a href="footwear.php">Footwear</a>
+            <a href="mysteryItems.php">Mystery Items</a>
+            <a id="cart" onclick="cartClick()">Cart</a>
         </div>
         <div class="cart">
-            <img src="https://img.icons8.com/ios-glyphs/30/000000/shopping-cart--v1.png"/></div>
+            <img onclick="cartClick()" src="https://img.icons8.com/ios-glyphs/30/000000/shopping-cart--v1.png"/></div>
     </div>
 </nav>
 <main>
     <div class="login">
         <form action="login.php" method="post">
-            <label>FirstName</label>
-            <input name="first" placeholder="FirstName" type="text">
-            <label>Last Name</label>
-            <input name="last" placeholder="LastName" type="text">
-            <label>Email</label>
-            <input name="logEmail" placeholder="Email" type="email" required>
-            <br>
-     <label>Password</label>
-            <input name="logPassword" placeholder="Password" type="password" required>
-            <br>
-
-            <input name="logSubmit" type="submit" value="Create">
+            <p>Login</p>
+            <input name="logEmail" placeholder="Email" type="email" required autocomplete="false">
+            <input name="logPassword" placeholder="Password" type="password" required autocomplete="false">
+            <input name="logSubmit" type="submit" value="Sign In">
             <div class="logHelp">
-                <a href="login.html">SigIn</a>
+                <a href="reg.php">Create Account</a>
                 <span>•</span>
-            
+                <a href="passRec.php">Forgot Password</a>
             </div>
         </form>
     </div>
@@ -98,11 +124,11 @@
                 <p><b>More Info</b></p>
                 <hr>
                 <ul>
-                    <li><a href="moreInfo/sizeCharts.html">Sizing charts</a></li>
+                    <li><a href="../moreInfo/sizeCharts.html">Sizing charts</a></li>
                     <li><a href="faq.html">Faq</a></li>
                     <li><a href="REpolicy.html">Return & exchange policy</a>
                     <li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="../contact/contact.html">Contact</a></li>
                     <li><a href="search.html">Search</a></li>
                     <li><a href="privacyPolicy.html">Privacy policy</a></li>
                     <li><a href="termsOfService.html">Terms of service</a></li>
@@ -124,9 +150,9 @@
         <div class="copyright">
             <div class="copyright-content">
                 <ul>
-                    <li><a href="index.html">© KETNIPZ 2022</a>
+                    <li><a href="index.php">© KETNIPZ 2022</a>
                     </li>
-                    <li>POWERED BY <a href="index.html">KILLER MERCH</a>
+                    <li>POWERED BY <a href="index.php">KILLER MERCH</a>
                     </li>
                 </ul>
             </div>
@@ -166,7 +192,7 @@
                     <svg aria-labelledby="pi-american_express" class="payment-icon" height="24" role="img"
                          viewBox="0 0 38 24"
                          width="35" xmlns="http://www.w3.org/2000/svg"><title id="pi-american_express">American
-                        Express</title>
+                            Express</title>
                         <g fill="none">
                             <path d="M35,0 L3,0 C1.3,0 0,1.3 0,3 L0,21 C0,22.7 1.4,24 3,24 L35,24 C36.7,24 38,22.7 38,21 L38,3 C38,1.3 36.6,0 35,0 Z"
                                   fill="#000"
@@ -188,14 +214,23 @@
                               fill="#000"></path>
                         <path d="M150.698 3.532l1.672.003c.452.003.905.008 1.36.02.793.022 1.719.065 2.583.22.75.135 1.38.34 1.984.648a6.392 6.392 0 0 1 2.804 2.807c.306.6.51 1.226.645 1.983.154.854.197 1.783.218 2.58.013.45.019.9.02 1.36.005.557.005 1.113.005 1.671v76.318c0 .558 0 1.114-.004 1.682-.002.45-.008.9-.02 1.35-.022.796-.065 1.725-.221 2.589a6.855 6.855 0 0 1-.645 1.975 6.397 6.397 0 0 1-2.808 2.807c-.6.306-1.228.511-1.971.645-.881.157-1.847.2-2.574.22-.457.01-.912.017-1.379.019-.555.004-1.113.004-1.669.004H14.801c-.55 0-1.1 0-1.66-.004a74.993 74.993 0 0 1-1.35-.018c-.744-.02-1.71-.064-2.584-.22a6.938 6.938 0 0 1-1.986-.65 6.337 6.337 0 0 1-1.622-1.18 6.355 6.355 0 0 1-1.178-1.623 6.935 6.935 0 0 1-.646-1.985c-.156-.863-.2-1.788-.22-2.578a66.088 66.088 0 0 1-.02-1.355l-.003-1.327V14.474l.002-1.325a66.7 66.7 0 0 1 .02-1.357c.022-.792.065-1.717.222-2.587a6.924 6.924 0 0 1 .646-1.981c.304-.598.7-1.144 1.18-1.623a6.386 6.386 0 0 1 1.624-1.18 6.96 6.96 0 0 1 1.98-.646c.865-.155 1.792-.198 2.586-.22.452-.012.905-.017 1.354-.02l1.677-.003h135.875"
                               fill="#FFF"></path>
-                        <g><g><path d="M43.508 35.77c1.404-1.755 2.356-4.112 2.105-6.52-2.054.102-4.56 1.355-6.012 3.112-1.303 1.504-2.456 3.959-2.156 6.266 2.306.2 4.61-1.152 6.063-2.858" fill="#000"></path><path
-                                d="M45.587 39.079c-3.35-.2-6.196 1.9-7.795 1.9-1.6 0-4.049-1.8-6.698-1.751-3.447.05-6.645 2-8.395 5.1-3.598 6.2-.95 15.4 2.55 20.45 1.699 2.5 3.747 5.25 6.445 5.151 2.55-.1 3.549-1.65 6.647-1.65 3.097 0 3.997 1.65 6.696 1.6 2.798-.05 4.548-2.5 6.247-5 1.95-2.85 2.747-5.6 2.797-5.75-.05-.05-5.396-2.101-5.446-8.251-.05-5.15 4.198-7.6 4.398-7.751-2.399-3.548-6.147-3.948-7.447-4.048"
-                                fill="#000"></path></g>
-                            <g><path d="M78.973 32.11c7.278 0 12.347 5.017 12.347 12.321 0 7.33-5.173 12.373-12.529 12.373h-8.058V69.62h-5.822V32.11h14.062zm-8.24 19.807h6.68c5.07 0 7.954-2.729 7.954-7.46 0-4.73-2.885-7.434-7.928-7.434h-6.706v14.894z" fill="#000"></path>
+                        <g>
+                            <g>
+                                <path d="M43.508 35.77c1.404-1.755 2.356-4.112 2.105-6.52-2.054.102-4.56 1.355-6.012 3.112-1.303 1.504-2.456 3.959-2.156 6.266 2.306.2 4.61-1.152 6.063-2.858"
+                                      fill="#000"></path>
+                                <path
+                                        d="M45.587 39.079c-3.35-.2-6.196 1.9-7.795 1.9-1.6 0-4.049-1.8-6.698-1.751-3.447.05-6.645 2-8.395 5.1-3.598 6.2-.95 15.4 2.55 20.45 1.699 2.5 3.747 5.25 6.445 5.151 2.55-.1 3.549-1.65 6.647-1.65 3.097 0 3.997 1.65 6.696 1.6 2.798-.05 4.548-2.5 6.247-5 1.95-2.85 2.747-5.6 2.797-5.75-.05-.05-5.396-2.101-5.446-8.251-.05-5.15 4.198-7.6 4.398-7.751-2.399-3.548-6.147-3.948-7.447-4.048"
+                                        fill="#000"></path>
+                            </g>
+                            <g>
+                                <path d="M78.973 32.11c7.278 0 12.347 5.017 12.347 12.321 0 7.33-5.173 12.373-12.529 12.373h-8.058V69.62h-5.822V32.11h14.062zm-8.24 19.807h6.68c5.07 0 7.954-2.729 7.954-7.46 0-4.73-2.885-7.434-7.928-7.434h-6.706v14.894z"
+                                      fill="#000"></path>
                                 <path d="M92.764 61.847c0-4.809 3.665-7.564 10.423-7.98l7.252-.442v-2.08c0-3.04-2.001-4.704-5.562-4.704-2.938 0-5.07 1.507-5.51 3.82h-5.252c.157-4.86 4.731-8.395 10.918-8.395 6.654 0 10.995 3.483 10.995 8.89v18.663h-5.38v-4.497h-.13c-1.534 2.937-4.914 4.782-8.579 4.782-5.406 0-9.175-3.222-9.175-8.057zm17.675-2.417v-2.106l-6.472.416c-3.64.234-5.536 1.585-5.536 3.95 0 2.288 1.975 3.77 5.068 3.77 3.95 0 6.94-2.522 6.94-6.03z"
                                       fill="#000"></path>
                                 <path d="M120.975 79.652v-4.496c.364.051 1.247.103 1.715.103 2.573 0 4.029-1.09 4.913-3.899l.52-1.663-9.852-27.293h6.082l6.863 22.146h.13l6.862-22.146h5.927l-10.216 28.67c-2.34 6.577-5.017 8.735-10.683 8.735-.442 0-1.872-.052-2.261-.157z"
-                                      fill="#000"></path></g></g></svg>
+                                      fill="#000"></path>
+                            </g>
+                        </g></svg>
 
                 </li>
 
@@ -215,7 +250,7 @@
                 <li>
                     <svg aria-labelledby="pi-discover" class="payment-icon" fill="none" height="24" role="img"
                          viewBox="0 0 38 24" width="35" xmlns="http://www.w3.org/2000/svg"><title
-                            id="pi-discover">Discover</title>
+                                id="pi-discover">Discover</title>
                         <path d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"
                               fill="#000"
                               opacity=".07"></path>
@@ -351,6 +386,16 @@
         </div>
     </div>
 </footer>
+<script>
+    function cartClick() {
+        <?php
+        if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) { ?>
+        window.location = 'cart.php';
+        <?php } else { ?>
+        window.location = 'login.php';
+        <?php } ?>
+    }
+</script>
 </body>
 </html>
 
