@@ -17,6 +17,7 @@ body {
     font-style: normal;
     font-size: 9px;
     color: #656565;
+
 }
 
 .inner-header-content {
@@ -127,7 +128,12 @@ nav {
     padding: 20px;
     position: relative;
 }
-
+.produ{
+    display: flex;
+    
+    justify-content: flex-end;
+    position: fixed;
+}
 .soldout {
     position: absolute;
     padding: 5px;
@@ -278,6 +284,47 @@ footer {
 .payment ul li {
     padding: 0 20px 0 20px;
 }
+ main .products .products-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	padding: 40px 0 0 0;
+    margin-left: 200px;
+    margin-right: 120px;
+
+}
+ main .products .products-wrapper .product {
+	display: block;
+	overflow: hidden;
+	text-decoration: none;
+	width: 25%;
+	padding-bottom: 60px;
+}
+ main .products .products-wrapper .product img {
+	transform: scale(1);
+	transition: transform 1s;
+}
+main .products .products-wrapper .product .name {
+	display: block;
+	color: #555555;
+	padding: 20px 0 2px 0;
+}
+ main .products .products-wrapper .product .price {
+	display: block;
+	color: #999999;
+}
+main .products .products-wrapper .product .rrp {
+	color: #BBBBBB;
+	text-decoration: line-through;
+}
+ main .products .products-wrapper .product:hover img {
+	transform: scale(1.05);
+	transition: transform 1s;
+}
+main .products .products-wrapper .product:hover .name {
+	text-decoration: underline;
+}
 
 
 @media screen and (max-width: 426px) {
@@ -411,6 +458,21 @@ footer {
     .payment ul li {
         padding: 5px 6px 5px 6px;
     }
+
+
+    main .products .products-wrapper {
+        display: block;
+        flex: 100%;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+    
+    }
+     main .products .products-wrapper .product {
+        width: 100%;
+        padding-bottom: 60px;
+    }
+
 }
 
 @media screen and (max-width: 769px) {
@@ -552,5 +614,19 @@ footer {
     .payment ul li {
         padding: 5px 6px 5px 6px;
     }
+    main .products .products-wrapper {
+        display: block;
+        flex: 50%;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+    
+    }
+     main .products .products-wrapper .product {
+        overflow: hidden;
+        text-decoration: none;
+        width: 50%;
+    }
+
 }
 
