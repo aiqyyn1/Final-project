@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KETNIPZ</title>
     <link href="css/shopAll.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/placeorder.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>

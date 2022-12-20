@@ -1,30 +1,34 @@
 <?php
-// Check to make sure the id parameter is specified in the URL
-if (isset($_GET['id'])) {
-    // Prepare statement and execute, prevents SQL injection
-    $stmt = $pdo->prepare('SELECT * FROM products WHERE id = ?');
-    $stmt->execute([$_GET['id']]);
-    // Fetch the product from the database and return the result as an Array
-    $product = $stmt->fetch(PDO::FETCH_ASSOC);
-    // Check if the product exists (array is not empty)
-    if (!$product) {
-        // Simple error to display if the id for the product doesn't exists (array is empty)
-        exit('Product does not exist!');
-    }
-} else {
-    // Simple error to display if the id wasn't specified
-    exit('Product does not exist!');
-}
+session_start();
+// Include functions and connect to the database using PDO MySQL
+include 'functions.php';
+$pdo = pdo_connect_mysql();
+
 ?>
+<?php
+// The amounts of products to show on each page
+$num_products_on_each_page = 38;
+// The current page, in the URL this will appear as index.php?page=products&p=1, index.php?page=products&p=2, etc...
+$current_page = isset($_GET['p']) && is_numeric($_GET['p']) ? (int)$_GET['p'] : 1;
+// Select products ordered by the date added
+$stmt = $pdo->prepare('SELECT * FROM products where cat = "plushies" ORDER BY date_added DESC LIMIT ?,?');
+// bindValue will allow us to use integer in the SQL statement, we need to use for LIMIT
+$stmt->bindValue(1, ($current_page - 1) * $num_products_on_each_page, PDO::PARAM_INT);
+$stmt->bindValue(2, $num_products_on_each_page, PDO::PARAM_INT);
+$stmt->execute();
+// Fetch the products from the database and return the result as an Array
+$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Get the total number of products
+$total_products = $pdo->query('SELECT * FROM products where cat = "plushies" ')->rowCount();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>KETNIPZ</title>
     <link href="css/shopAll.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/product.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
@@ -71,33 +75,46 @@ if (isset($_GET['id'])) {
             <a href="accessories.php">Accessories</a>
             <a href="footwear.php">Footwear</a>
             <a href="mysteryItems.php">Mystery Items</a>
-            <a id="cart" onclick="cartClick()">Cart</a>
+            <a href="index2.php?page=cart" id="cart" onclick="cartClick()">Cart</a>
         </div>
         <div class="cart">
             <img onclick="cartClick()" src="https://img.icons8.com/ios-glyphs/30/000000/shopping-cart--v1.png"/></div>
     </div>
 </nav>
 <main>
-<div class="product content-wrapper">
-    <img src="imgs/<?=$product['img']?>" width="500" height="500" alt="<?=$product['name']?>">
-    <div>
-        <h1 class="name"><?=$product['name']?></h1>
-        <span class="price">
-            &dollar;<?=$product['price']?>
-            <?php if ($product['rrp'] > 0): ?>
-            <span class="rrp">&dollar;<?=$product['rrp']?></span>
-            <?php endif; ?>
-        </span>
-        <form action="index2.php?page=cart" method="post">
-            <input type="number" name="quantity" value="1" min="1" max="<?=$product['quantity']?>" placeholder="Quantity" required>
-            <input type="hidden" name="product_id" value="<?=$product['id']?>">
-            <input type="submit" value="Add To Cart">
-        </form>
-        <div class="description">
-            <?=$product['desc']?>
+    <div class="products content-wrapper">
+        <div class="shopAll">
+            <h1>Shop All</h1>
+        </div>
+        <div class="subscribe">
+            <div>subscribe</div>
+        </div>
+    
+    <p class="produ"><?=$total_products?> Products</p>
+    <div class="products-wrapper">
+        <?php foreach ($products as $product): ?>
+        <a href="index2.php?page=product&id=<?=$product['id']?>" class="product">
+            <img src="imgs/<?=$product['img']?>" width="200" height="200" alt="<?=$product['name']?>">
+            <span class="name"><?=$product['name']?></span>
+            <span class="price">
+                &dollar;<?=$product['price']?>
+                <?php if ($product['rrp'] > 0): ?>
+                <span class="rrp">&dollar;<?=$product['rrp']?></span>
+                <?php endif; ?>
+            </span>
+        </a>
+        <?php endforeach; ?>
+    </div>
+    <div class="buttons">
+        <?php if ($current_page > 1): ?>
+        <a href="index.php?page=products&p=<?=$current_page-1?>">Prev</a>
+        <?php endif; ?>
+        <?php if ($total_products > ($current_page * $num_products_on_each_page) - $num_products_on_each_page + count($products)): ?>
+        <a href="index.php?page=products&p=<?=$current_page+1?>">Next</a>
+        <?php endif; ?>
+    </div>
         </div>
     </div>
-</div>
 </main>
 <footer>
     <div class="footer-content">
@@ -375,5 +392,17 @@ if (isset($_GET['id'])) {
         </div>
     </div>
 </footer>
+<script>
+    function cartClick() {
+        <?php
+        if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {?>
+        window.location = 'cart.php';
+        <?php
+        } else {?>
+        window.location = 'login.php';
+        <?php
+        }?>
+    }
+</script>
 </body>
 </html>

@@ -7,7 +7,7 @@ $pdo = pdo_connect_mysql();
 ?>
 <?php
 // The amounts of products to show on each page
-$num_products_on_each_page = 10;
+$num_products_on_each_page = 38;
 // The current page, in the URL this will appear as index.php?page=products&p=1, index.php?page=products&p=2, etc...
 $current_page = isset($_GET['p']) && is_numeric($_GET['p']) ? (int)$_GET['p'] : 1;
 // Select products ordered by the date added
@@ -39,7 +39,7 @@ $total_products = $pdo->query('SELECT * FROM products')->rowCount();
                                       src="https://img.icons8.com/ios-filled/50/737373/user.png" width="20"/>
             </a>
             <p>Official ketnipz online store</p>
-            <img onclick="logOut()" class="header-img" height="20" src="https://img.icons8.com/external-kmg-design-detailed-outline-kmg-design/64/000000/external-log-out-user-interface-kmg-design-detailed-outline-kmg-design.png"
+            <img class="header-img" height="20" src="https://img.icons8.com/ios-glyphs/30/737373/search--v1.png"
                  width="20"/></div>
     </div>
 </header>
@@ -75,23 +75,23 @@ $total_products = $pdo->query('SELECT * FROM products')->rowCount();
             <a href="accessories.php">Accessories</a>
             <a href="footwear.php">Footwear</a>
             <a href="mysteryItems.php">Mystery Items</a>
-            <a id="cart" onclick="cartClick()">Cart</a>
+            <a href="index2.php?page=cart" id="cart" onclick="cartClick()">Cart</a>
         </div>
         <div class="cart">
             <img onclick="cartClick()" src="https://img.icons8.com/ios-glyphs/30/000000/shopping-cart--v1.png"/></div>
     </div>
 </nav>
 <main>
-    <div class="items">
+    <div class="products content-wrapper">
         <div class="shopAll">
             <h1>Shop All</h1>
         </div>
         <div class="subscribe">
             <div>subscribe</div>
         </div>
-        <p><?=$total_products?> Products</p>
-    <div class="fotos">
-    <div class="kox">
+    
+    <p class="produ"><?=$total_products?> Products</p>
+    <div class="products-wrapper">
         <?php foreach ($products as $product): ?>
         <a href="index2.php?page=product&id=<?=$product['id']?>" class="product">
             <img src="imgs/<?=$product['img']?>" width="200" height="200" alt="<?=$product['name']?>">
@@ -104,7 +104,6 @@ $total_products = $pdo->query('SELECT * FROM products')->rowCount();
             </span>
         </a>
         <?php endforeach; ?>
-    </div>
     </div>
     <div class="buttons">
         <?php if ($current_page > 1): ?>
@@ -404,29 +403,6 @@ $total_products = $pdo->query('SELECT * FROM products')->rowCount();
         <?php
         }?>
     }
-    
-    function loginClick() {
-        <?php
-        if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {?>
-        window.location = 'profile.php';
-        <?php
-        } else {?>
-        window.location = 'login.php';
-        <?php
-        }?>
-    }
-
-    function logOut() {
-        <?php
-        unset($_SESSION['fname']);
-        unset($_SESSION['lname']);
-        unset($_SESSION['email']);
-        unset($_SESSION['password']);
-        $_SESSION['loggedIn'] = false;
-        ?>
-        window.location = 'login.php'
-    }
-    
 </script>
 </body>
 </html>
