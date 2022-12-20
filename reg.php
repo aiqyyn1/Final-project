@@ -405,16 +405,7 @@ if (isset($_REQUEST['regSubmit'])) {
         <?php } ?>
     }
 
-    function logOut() {
-        <?php
-        unset($_SESSION['fname']);
-        unset($_SESSION['lname']);
-        unset($_SESSION['email']);
-        unset($_SESSION['password']);
-        $_SESSION['loggedIn'] = false;
-        ?>
-        window.location = 'login.php'
-    }
+
 </script>
 </body>
 </html>
