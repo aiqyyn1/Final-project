@@ -1,4 +1,4 @@
-<?php ?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,11 +12,12 @@
 <header>
     <div class="header-content">
         <div class="inner-header-content">
-            <a href="login.php"> <img class="header-img" height="20"
-                                      src="https://img.icons8.com/ios-filled/50/737373/user.png" width="20"/>
+            <a onclick="loginClick()"><img class="header-img" height="20"
+                                           src="https://img.icons8.com/ios-filled/50/737373/user.png" width="20"/>
             </a>
             <p>Official ketnipz online store</p>
-            <img class="header-img" height="20" src="https://img.icons8.com/ios-glyphs/30/737373/search--v1.png"
+            <img onclick="logOut()" class="header-img" height="20"
+                 src="https://img.icons8.com/external-kmg-design-detailed-outline-kmg-design/64/000000/external-log-out-user-interface-kmg-design-detailed-outline-kmg-design.png"
                  width="20"/></div>
     </div>
 </header>
@@ -94,8 +95,8 @@
                 <p><b>More Info</b></p>
                 <hr>
                 <ul>
-                    <li><a href="sizeCharts.html">Sizing charts</a></li>
-                    <li><a href="faq.html">Faq</a></li>
+                    <li><a href="sizingChart.php">Sizing charts</a></li>
+                    <li><a href="faq.php">Faq</a></li>
                     <li><a href="REpolicy.html">Return & exchange policy</a>
                     <li>
                     <li><a href="contact.php">Contact</a></li>
@@ -360,6 +361,29 @@
         <?php
         }?>
     }
+
+    function loginClick() {
+        <?php
+        if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {?>
+        window.location = 'profile.php';
+        <?php
+        } else {?>
+        window.location = 'login.php';
+        <?php
+        }?>
+    }
+
+    function logOut() {
+        <?php
+        unset($_SESSION['fname']);
+        unset($_SESSION['lname']);
+        unset($_SESSION['email']);
+        unset($_SESSION['password']);
+        $_SESSION['loggedIn'] = false;
+        ?>
+        window.location = 'login.php'
+    }
+
 </script>
 </body>
 </html>
