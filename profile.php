@@ -14,11 +14,12 @@ session_start();
 <header>
     <div class="header-content">
         <div class="inner-header-content">
-            <a href="login.php"> <img class="header-img" height="20"
-                                      src="https://img.icons8.com/ios-filled/50/737373/user.png" width="20"/>
+            <a onclick="loginClick()"> <img class="header-img" height="20"
+                                            src="https://img.icons8.com/ios-filled/50/737373/user.png" width="20"/>
             </a>
             <p>Official ketnipz online store</p>
-            <img class="header-img" height="20" src="https://img.icons8.com/ios-glyphs/30/737373/search--v1.png"
+            <img class="header-img" height="20"
+                 src="https://img.icons8.com/external-kmg-design-detailed-outline-kmg-design/64/000000/external-log-out-user-interface-kmg-design-detailed-outline-kmg-design.png"
                  width="20"/></div>
     </div>
 </header>
@@ -45,7 +46,7 @@ session_start();
         </div>
         <div class="nav-links">
             <a href="index.php">Home</a>
-            <a href="index.php">Shop All</a>
+            <a href="shopAll.php">Shop All</a>
             <a href="apparel.php">Apparel</a>
             <a href="plushies.php">Plushies</a>
             <a href="accessories.php">Accessories</a>
@@ -73,8 +74,8 @@ session_start();
                 <p><b>Main Menu</b></p>
                 <hr>
                 <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="shopAll.html">Shop All</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="shopAll.php">Shop All</a></li>
                     <li><a href="apparel.html">Apparel</a></li>
                     <li><a href="plushies.html">Plushies</a></li>
                     <li><a href="accessories.html">Accessories</a></li>
@@ -86,11 +87,11 @@ session_start();
                 <p><b>More Info</b></p>
                 <hr>
                 <ul>
-                    <li><a href="../moreInfo/sizeCharts.html">Sizing charts</a></li>
-                    <li><a href="faq.html">Faq</a></li>
+                    <li><a href="sizingChart.php">Sizing charts</a></li>
+                    <li><a href="faq.php">Faq</a></li>
                     <li><a href="REpolicy.html">Return & exchange policy</a>
                     <li>
-                    <li><a href="../contact/contact.html">Contact</a></li>
+                    <li><a href="contact.php">Contact</a></li>
                     <li><a href="search.html">Search</a></li>
                     <li><a href="privacyPolicy.html">Privacy policy</a></li>
                     <li><a href="termsOfService.html">Terms of service</a></li>
@@ -181,8 +182,8 @@ session_start();
                                 <path d="M43.508 35.77c1.404-1.755 2.356-4.112 2.105-6.52-2.054.102-4.56 1.355-6.012 3.112-1.303 1.504-2.456 3.959-2.156 6.266 2.306.2 4.61-1.152 6.063-2.858"
                                       fill="#000"></path>
                                 <path
-                                    d="M45.587 39.079c-3.35-.2-6.196 1.9-7.795 1.9-1.6 0-4.049-1.8-6.698-1.751-3.447.05-6.645 2-8.395 5.1-3.598 6.2-.95 15.4 2.55 20.45 1.699 2.5 3.747 5.25 6.445 5.151 2.55-.1 3.549-1.65 6.647-1.65 3.097 0 3.997 1.65 6.696 1.6 2.798-.05 4.548-2.5 6.247-5 1.95-2.85 2.747-5.6 2.797-5.75-.05-.05-5.396-2.101-5.446-8.251-.05-5.15 4.198-7.6 4.398-7.751-2.399-3.548-6.147-3.948-7.447-4.048"
-                                    fill="#000"></path>
+                                        d="M45.587 39.079c-3.35-.2-6.196 1.9-7.795 1.9-1.6 0-4.049-1.8-6.698-1.751-3.447.05-6.645 2-8.395 5.1-3.598 6.2-.95 15.4 2.55 20.45 1.699 2.5 3.747 5.25 6.445 5.151 2.55-.1 3.549-1.65 6.647-1.65 3.097 0 3.997 1.65 6.696 1.6 2.798-.05 4.548-2.5 6.247-5 1.95-2.85 2.747-5.6 2.797-5.75-.05-.05-5.396-2.101-5.446-8.251-.05-5.15 4.198-7.6 4.398-7.751-2.399-3.548-6.147-3.948-7.447-4.048"
+                                        fill="#000"></path>
                             </g>
                             <g>
                                 <path d="M78.973 32.11c7.278 0 12.347 5.017 12.347 12.321 0 7.33-5.173 12.373-12.529 12.373h-8.058V69.62h-5.822V32.11h14.062zm-8.24 19.807h6.68c5.07 0 7.954-2.729 7.954-7.46 0-4.73-2.885-7.434-7.928-7.434h-6.706v14.894z"
@@ -212,7 +213,7 @@ session_start();
                 <li>
                     <svg aria-labelledby="pi-discover" class="payment-icon" fill="none" height="24" role="img"
                          viewBox="0 0 38 24" width="35" xmlns="http://www.w3.org/2000/svg"><title
-                            id="pi-discover">Discover</title>
+                                id="pi-discover">Discover</title>
                         <path d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"
                               fill="#000"
                               opacity=".07"></path>
@@ -356,6 +357,28 @@ session_start();
         <?php } else { ?>
         window.location = 'login.php';
         <?php } ?>
+    }
+
+    function loginClick() {
+        <?php
+        if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {?>
+        window.location = 'profile.php';
+        <?php
+        } else {?>
+        window.location = 'login.php';
+        <?php
+        }?>
+    }
+
+    function logOut() {
+        <?php
+        unset($_SESSION['fname']);
+        unset($_SESSION['lname']);
+        unset($_SESSION['email']);
+        unset($_SESSION['password']);
+        $_SESSION['loggedIn'] = false;
+        ?>
+        window.location = 'login.php'
     }
 </script>
 </body>
