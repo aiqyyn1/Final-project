@@ -50,7 +50,8 @@ if (isset($_REQUEST['logSubmit'])) {
                                       src="https://img.icons8.com/ios-filled/50/737373/user.png" width="20"/>
             </a>
             <p>Official ketnipz online store</p>
-            <img class="header-img" height="20" src="https://img.icons8.com/ios-glyphs/30/737373/search--v1.png"
+            <img class="header-img" height="20"
+                 src="https://img.icons8.com/external-kmg-design-detailed-outline-kmg-design/64/000000/external-log-out-user-interface-kmg-design-detailed-outline-kmg-design.png"
                  width="20"/></div>
     </div>
 </header>
@@ -64,7 +65,7 @@ if (isset($_REQUEST['logSubmit'])) {
             </label>
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="index.php">Shop All</a></li>
+                <li><a href="shopAll.php">Shop All</a></li>
                 <li><a href="index.php">Apparel</a></li>
                 <li><a href="index.php">Plushies</a></li>
                 <li><a href="index.php">Accessories</a></li>
@@ -77,7 +78,7 @@ if (isset($_REQUEST['logSubmit'])) {
         </div>
         <div class="nav-links">
             <a href="index.php">Home</a>
-            <a href="index.php">Shop All</a>
+            <a href="shopAll.php">Shop All</a>
             <a href="apparel.php">Apparel</a>
             <a href="plushies.php">Plushies</a>
             <a href="accessories.php">Accessories</a>
@@ -112,7 +113,7 @@ if (isset($_REQUEST['logSubmit'])) {
                 <hr>
                 <ul>
                     <li><a href="home.html">Home</a></li>
-                    <li><a href="shopAll.html">Shop All</a></li>
+                    <li><a href="shopAll.php">Shop All</a></li>
                     <li><a href="apparel.html">Apparel</a></li>
                     <li><a href="plushies.html">Plushies</a></li>
                     <li><a href="accessories.html">Accessories</a></li>
@@ -124,11 +125,11 @@ if (isset($_REQUEST['logSubmit'])) {
                 <p><b>More Info</b></p>
                 <hr>
                 <ul>
-                    <li><a href="../moreInfo/sizeCharts.html">Sizing charts</a></li>
-                    <li><a href="faq.html">Faq</a></li>
+                    <li><a href="sizingChart.php">Sizing charts</a></li>
+                    <li><a href="faq.php">Faq</a></li>
                     <li><a href="REpolicy.html">Return & exchange policy</a>
                     <li>
-                    <li><a href="../contact/contact.html">Contact</a></li>
+                    <li><a href="contact.php">Contact</a></li>
                     <li><a href="search.html">Search</a></li>
                     <li><a href="privacyPolicy.html">Privacy policy</a></li>
                     <li><a href="termsOfService.html">Terms of service</a></li>
@@ -394,6 +395,17 @@ if (isset($_REQUEST['logSubmit'])) {
         <?php } else { ?>
         window.location = 'login.php';
         <?php } ?>
+    }
+
+    function logOut() {
+        <?php
+        unset($_SESSION['fname']);
+        unset($_SESSION['lname']);
+        unset($_SESSION['email']);
+        unset($_SESSION['password']);
+        $_SESSION['loggedIn'] = false;
+        ?>
+        window.location = 'login.php'
     }
 </script>
 </body>
